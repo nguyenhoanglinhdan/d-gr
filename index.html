@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Present Simple & Present Continuous - Grade 6</title>
+<style>
+:root{--blue:#2563eb;--blue2:#dbeafe;--green:#15803d;--red:#b91c1c;--ink:#172033;--muted:#64748b;--line:#dbe3ef;--bg:#f4f7fb}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font-family:Arial,Helvetica,sans-serif;color:var(--ink);line-height:1.5}
+.wrap{max-width:850px;margin:0 auto;padding:20px 14px 40px}
+header{text-align:center;margin:10px 0 20px}
+h1{font-size:clamp(23px,4vw,32px);margin:0 0 6px;color:#173b75}
+.sub{color:var(--muted);margin:0}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 8px 24px #1e3a8a0d;margin-bottom:16px}
+.hidden{display:none!important}
+input[type=password],input[type=text]{width:100%;padding:13px 14px;border:1px solid #cbd5e1;border-radius:10px;font-size:17px;outline:none}
+input:focus{border-color:var(--blue);box-shadow:0 0 0 3px #2563eb20}
+button{border:0;border-radius:10px;padding:11px 16px;font-size:15px;font-weight:700;cursor:pointer;background:var(--blue);color:white}
+button:disabled{opacity:.45;cursor:not-allowed}
+button.secondary{background:#e8eef8;color:#1e3a8a}
+button.danger{background:#fee2e2;color:#991b1b}
+button.ghost{background:white;color:#1e40af;border:1px solid #bfdbfe}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.center{text-align:center}
+.error{color:var(--red);font-weight:700;margin-top:8px}
+.parts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.part{padding:16px;border:1px solid var(--line);border-radius:14px;background:#fff;text-align:left}
+.part h3{margin:0 0 5px;font-size:17px}
+.part p{margin:0 0 12px;color:var(--muted);font-size:14px}
+.part .row{justify-content:space-between}
+.badge{font-size:12px;background:#eff6ff;color:#1d4ed8;padding:4px 9px;border-radius:99px;font-weight:700}
+.topline{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+.progress{height:9px;background:#e8edf5;border-radius:20px;overflow:hidden;margin:12px 0 18px}
+.bar{height:100%;background:linear-gradient(90deg,#2563eb,#38bdf8);width:0;transition:width .2s}
+.qtext{font-size:clamp(19px,3vw,23px);font-weight:700;margin:14px 0 18px}
+.options{display:grid;gap:10px}
+.opt{width:100%;text-align:left;background:#f8fafc;color:var(--ink);border:1.5px solid #dbe3ef;padding:14px 15px;font-size:17px;font-weight:500}
+.opt:hover:not(:disabled){border-color:#60a5fa;background:#eff6ff}
+.opt.correct{border-color:#16a34a;background:#f0fdf4;color:#166534}
+.opt.wrong{border-color:#dc2626;background:#fef2f2;color:#991b1b}
+.feedback{border-radius:12px;padding:14px;margin-top:16px;background:#f1f5f9;border-left:5px solid #94a3b8}
+.feedback.good{background:#f0fdf4;border-color:#16a34a}
+.feedback.bad{background:#fef2f2;border-color:#dc2626}
+.feedback strong{display:block;margin-bottom:5px}
+.translation{margin-top:7px;color:#334155}
+.explain{margin-top:6px}
+.controls{display:flex;justify-content:space-between;gap:10px;margin-top:20px;flex-wrap:wrap}
+.small{font-size:13px;color:var(--muted)}
+.answer-input{margin:12px 0}
+.score{font-size:20px;font-weight:800;color:#173b75}
+.end{text-align:center;padding:20px;background:#eff6ff;border-radius:14px}
+@media(max-width:560px){.wrap{padding:12px 10px 28px}.card{padding:17px}.parts{grid-template-columns:1fr}.controls button{flex:1}.qtext{font-size:19px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>PRESENT SIMPLE & PRESENT CONTINUOUS</h1>
+<p class="sub">Bài luyện tập tiếng Anh lớp 6 · 40 câu trộn chung</p>
+</header>
+
+<section id="login" class="card">
+<h2 class="center">Enter password</h2>
+<p class="center small">Nhập mật khẩu để bắt đầu làm bài.</p>
+<div style="max-width:360px;margin:16px auto">
+<input id="password" type="password" placeholder="Password" inputmode="numeric">
+<button id="loginBtn" style="width:100%;margin-top:10px">Start</button>
+<div id="loginError" class="error center"></div>
+</div>
+</section>
+
+<section id="home" class="hidden">
+<div class="card">
+<h2 style="margin-top:0">Hướng dẫn làm bài</h2>
+<ul>
+<li>Mỗi lần chỉ hiển thị <b>một câu hỏi</b>.</li>
+<li>Chọn một đáp án cho mỗi câu. Hệ thống chấm và giải thích ngay; đáp án đã chọn sẽ bị khóa.</li>
+<li>Có nút <b>Reset</b> để làm lại toàn bộ 40 câu; thứ tự câu hỏi sẽ được trộn lại.</li>
+<li>Câu trả lời không phân biệt chữ hoa và chữ thường.</li>
+</ul>
+</div>
+<div class="parts" id="partList"></div>
+</section>
+
+<section id="quiz" class="card hidden">
+<div class="topline">
+<div><span id="partTitle" class="badge"></span></div>
+<div class="small" id="counter"></div>
+</div>
+<div class="progress"><div class="bar" id="bar"></div></div>
+<div id="question" class="qtext"></div>
+<div id="options" class="options"></div>
+<div id="feedback" class="hidden"></div>
+<div class="controls">
+<div class="row"><button class="secondary" id="backHome">← Parts</button><button class="danger" id="resetPart">Reset this part</button></div>
+<div class="row">
+<button class="secondary" id="prevBtn">Previous</button>
+<button id="nextBtn" disabled>Next →</button>
+</div>
+</div>
+</section>
+</div>
+
+<script>
+const rawParts = [
+{
+ id:'mc', title:'Part 1. Multiple Choice – Mixed Tenses', count:'20 câu trắc nghiệm',
+ type:'mc', questions:[
+ {q:'My father _____ to work every day.',opts:['go','goes','is going'],a:1,exp:'“Every day” diễn tả thói quen nên dùng thì hiện tại đơn. Chủ ngữ “My father” là ngôi thứ ba số ít, động từ “go” thêm -es thành “goes”.',vi:'Bố tôi đi làm mỗi ngày.'},
+ {q:'Look! The dog _____ in the garden.',opts:['runs','run','is running'],a:2,exp:'“Look!” báo hiệu hành động đang xảy ra ngay lúc nói, dùng hiện tại tiếp diễn: is + V-ing.',vi:'Nhìn kìa! Con chó đang chạy trong vườn.'},
+ {q:'She usually _____ breakfast at 6.30.',opts:['has','have','is having'],a:0,exp:'“Usually” diễn tả thói quen. Chủ ngữ “She” đi với động từ thêm -s: has.',vi:'Cô ấy thường ăn sáng lúc 6 giờ 30.'},
+ {q:'They _____ football now.',opts:['play','plays','are playing'],a:2,exp:'“Now” diễn tả hành động đang xảy ra. Chủ ngữ “They” đi với “are” + V-ing.',vi:'Bây giờ họ đang chơi bóng đá.'},
+ {q:'Nam often _____ TV in the evening.',opts:['watch','watches','is watching'],a:1,exp:'“Often” chỉ thói quen. “Nam” là ngôi thứ ba số ít nên “watch” thêm -es thành “watches”.',vi:'Nam thường xem TV vào buổi tối.'},
+ {q:'Listen! The baby _____.',opts:['cries','is crying','cry'],a:1,exp:'“Listen!” báo hiệu hành động đang diễn ra. Dùng hiện tại tiếp diễn: is crying.',vi:'Nghe này! Em bé đang khóc.'},
+ {q:'I _____ English every Monday.',opts:['study','am studying','studies'],a:0,exp:'“Every Monday” diễn tả lịch học lặp lại. Với chủ ngữ “I”, dùng động từ nguyên mẫu “study”.',vi:'Tôi học tiếng Anh vào mỗi thứ Hai.'},
+ {q:'My mother _____ dinner at the moment.',opts:['cooks','cook','is cooking'],a:2,exp:'“At the moment” là dấu hiệu hiện tại tiếp diễn. “My mother” đi với “is” + V-ing.',vi:'Mẹ tôi đang nấu bữa tối lúc này.'},
+ {q:'We _____ to school by bike every day.',opts:['go','goes','are going'],a:0,exp:'“Every day” diễn tả thói quen. Chủ ngữ “We” dùng động từ nguyên mẫu “go”.',vi:'Chúng tôi đi học bằng xe đạp mỗi ngày.'},
+ {q:'Be quiet! The students _____.',opts:['sleep','sleeps','are sleeping'],a:2,exp:'“Be quiet!” cho biết học sinh đang ngủ ngay lúc nói. Dùng hiện tại tiếp diễn: are sleeping.',vi:'Hãy giữ im lặng! Các học sinh đang ngủ.'},
+ {q:'He _____ his teeth twice a day.',opts:['brush','brushes','is brushing'],a:1,exp:'“Twice a day” diễn tả thói quen. “He” là ngôi thứ ba số ít; “brush” thêm -es thành “brushes”.',vi:'Anh ấy đánh răng hai lần một ngày.'},
+ {q:'Look! It _____ outside.',opts:['rains','is raining','rain'],a:1,exp:'“Look!” cho biết trời đang mưa ngay lúc nói. Dùng hiện tại tiếp diễn: is raining.',vi:'Nhìn kìa! Trời đang mưa bên ngoài.'},
+ {q:'My friends _____ basketball after school.',opts:['play','plays','are playing'],a:0,exp:'“After school” ở đây diễn tả hoạt động thường lệ. “My friends” là số nhiều nên dùng “play”.',vi:'Bạn bè tôi chơi bóng rổ sau giờ học.'},
+ {q:'She _____ a book right now.',opts:['reads','read','is reading'],a:2,exp:'“Right now” là dấu hiệu hiện tại tiếp diễn. “She” đi với “is” + V-ing.',vi:'Cô ấy đang đọc sách ngay lúc này.'},
+ {q:"I usually _____ up at 6 o'clock.",opts:['get','gets','am getting'],a:0,exp:'“Usually” chỉ thói quen. Với chủ ngữ “I”, dùng động từ nguyên mẫu “get”.',vi:'Tôi thường thức dậy lúc 6 giờ.'},
+ {q:'They _____ lunch at the moment.',opts:['have','has','are having'],a:2,exp:'“At the moment” diễn tả hành động đang xảy ra. “They” đi với “are having”.',vi:'Họ đang ăn trưa lúc này.'},
+ {q:'Peter _____ his homework every evening.',opts:['do','does','is doing'],a:1,exp:'“Every evening” chỉ thói quen. “Peter” là ngôi thứ ba số ít; “do” đổi thành “does”.',vi:'Peter làm bài tập về nhà mỗi buổi tối.'},
+ {q:'Listen! Someone _____ at the door.',opts:['knocks','knock','is knocking'],a:2,exp:'“Listen!” báo hiệu hành động đang diễn ra. “Someone” là số ít nên dùng “is knocking”.',vi:'Nghe này! Ai đó đang gõ cửa.'},
+ {q:'My sister _____ to music every night.',opts:['listen','listens','is listening'],a:1,exp:'“Every night” diễn tả thói quen. “My sister” là ngôi thứ ba số ít nên “listen” thêm -s thành “listens”.',vi:'Chị/em gái tôi nghe nhạc mỗi tối.'},
+ {q:'We _____ a science lesson now.',opts:['have','are having','has'],a:1,exp:'“Now” diễn tả việc đang diễn ra. Chủ ngữ “We” đi với “are” + V-ing.',vi:'Bây giờ chúng tôi đang học một tiết Khoa học.'}
+ ]},
+{
+ id:'verbs',title:'Part 2. Verb Forms – Put the verbs in brackets',count:'10 câu chia động từ',type:'text',
+ questions:[
+ {q:"She usually _____ (get) up at 6 o'clock.",a:['gets'],exp:'“Usually” chỉ thói quen nên dùng hiện tại đơn. “She” là ngôi thứ ba số ít: get → gets.',vi:'Cô ấy thường thức dậy lúc 6 giờ.'},
+ {q:'Look! The children _____ (play) in the park.',a:['are playing'],exp:'“Look!” báo hiệu hành động đang diễn ra. “The children” là số nhiều: are + playing.',vi:'Nhìn kìa! Bọn trẻ đang chơi trong công viên.'},
+ {q:'My father _____ (go) to work by car every day.',a:['goes'],exp:'“Every day” chỉ thói quen. “My father” là ngôi thứ ba số ít: go → goes.',vi:'Bố tôi đi làm bằng ô tô mỗi ngày.'},
+ {q:'I _____ (do) my homework now.',a:['am doing'],exp:'“Now” chỉ hành động đang diễn ra. Với “I”, dùng am + V-ing: am doing.',vi:'Tôi đang làm bài tập về nhà.'},
+ {q:'They often _____ (watch) TV in the evening.',a:['watch'],exp:'“Often” chỉ thói quen. Chủ ngữ “They” dùng động từ nguyên mẫu “watch”.',vi:'Họ thường xem TV vào buổi tối.'},
+ {q:'Listen! The birds _____ (sing).',a:['are singing'],exp:'“Listen!” báo hiệu hành động đang diễn ra. “The birds” là số nhiều: are singing.',vi:'Nghe này! Những chú chim đang hót.'},
+ {q:'He _____ (not like) playing football.',a:["doesn't like",'does not like'],exp:'Câu phủ định hiện tại đơn với “He”: does not/doesn’t + động từ nguyên mẫu. Vì vậy dùng “doesn’t like”, không dùng “doesn’t likes”.',vi:'Cậu ấy không thích chơi bóng đá.'},
+ {q:'We _____ (study) English at the moment.',a:['are studying'],exp:'“At the moment” chỉ hành động đang xảy ra. “We” đi với “are” + V-ing.',vi:'Chúng tôi đang học tiếng Anh vào lúc này.'},
+ {q:'Lan _____ (brush) her teeth twice a day.',a:['brushes'],exp:'“Twice a day” chỉ thói quen. “Lan” là ngôi thứ ba số ít; brush thêm -es thành brushes.',vi:'Lan đánh răng hai lần một ngày.'},
+ {q:'My mother _____ (cook) dinner right now.',a:['is cooking'],exp:'“Right now” chỉ hành động đang diễn ra. “My mother” đi với “is” + V-ing.',vi:'Mẹ tôi đang nấu bữa tối ngay lúc này.'}
+ ]},
+{
+ id:'negative',title:'Part 3. Negative Sentences – Câu phủ định',count:'10 câu trắc nghiệm',type:'mc',
+ questions:[
+ {q:'She _____ to school on Sundays.',opts:["don't go","doesn't go","isn't go"],a:1,exp:'Câu phủ định hiện tại đơn với “She”: doesn’t + động từ nguyên mẫu. Không dùng “doesn’t goes”.',vi:'Cô ấy không đi học vào các ngày Chủ nhật.'},
+ {q:'They _____ football now.',opts:["aren't playing","doesn't play","isn't playing"],a:0,exp:'“Now” chỉ hành động đang diễn ra. Phủ định hiện tại tiếp diễn: are not + V-ing. “They” đi với “aren’t”.',vi:'Bây giờ họ không chơi bóng đá.'},
+ {q:'My brother _____ coffee.',opts:["don't like","doesn't likes","doesn't like"],a:2,exp:'“My brother” là ngôi thứ ba số ít. Phủ định hiện tại đơn: doesn’t + động từ nguyên mẫu “like”.',vi:'Anh/em trai tôi không thích cà phê.'},
+ {q:'I _____ TV at the moment.',opts:["am not watching","don't watching","isn't watching"],a:0,exp:'“At the moment” chỉ hiện tại tiếp diễn. Phủ định với “I”: am not + V-ing.',vi:'Tôi không xem TV vào lúc này.'},
+ {q:'He _____ his homework every evening.',opts:["don't do","doesn't do","isn't doing"],a:1,exp:'“Every evening” chỉ thói quen. Phủ định hiện tại đơn với “He”: doesn’t + do.',vi:'Anh ấy không làm bài tập về nhà mỗi buổi tối.'},
+ {q:'We _____ English now.',opts:["aren't studying","doesn't study","isn't studying"],a:0,exp:'“Now” chỉ hành động đang diễn ra. Phủ định hiện tại tiếp diễn với “We”: aren’t + V-ing.',vi:'Bây giờ chúng tôi không học tiếng Anh.'},
+ {q:'Lan _____ up late every day.',opts:["don't get","doesn't gets","doesn't get"],a:2,exp:'“Every day” chỉ thói quen. Phủ định với “Lan”: doesn’t + động từ nguyên mẫu “get”.',vi:'Lan không thức dậy muộn mỗi ngày.'},
+ {q:'The baby _____ now.',opts:["isn't sleeping","doesn't sleeping","aren't sleeping"],a:0,exp:'“Now” chỉ hành động đang diễn ra. “The baby” là số ít nên dùng “isn’t + V-ing”.',vi:'Em bé hiện không ngủ.'},
+ {q:'My parents _____ to work on Sundays.',opts:["doesn't go","don't go","aren't go"],a:1,exp:'“On Sundays” chỉ thói quen. “My parents” là số nhiều nên dùng “don’t + động từ nguyên mẫu”.',vi:'Bố mẹ tôi không đi làm vào các ngày Chủ nhật.'},
+ {q:'It _____ at the moment.',opts:["doesn't rain","don't rain","isn't raining"],a:2,exp:'“At the moment” chỉ hiện tại tiếp diễn. Với “It”, câu phủ định là “isn’t + V-ing”.',vi:'Lúc này trời không mưa.'}
+ ]},
+{
+ id:'questions',title:'Part 4. Yes/No Questions – Câu nghi vấn',count:'10 câu trắc nghiệm',type:'mc',
+ questions:[
+ {q:'_____ she go to school every day?',opts:['Do','Does','Is'],a:1,exp:'“Every day” chỉ thói quen, dùng hiện tại đơn. Chủ ngữ “she” cần trợ động từ “Does”.',vi:'Cô ấy có đi học mỗi ngày không?'},
+ {q:'_____ they playing football now?',opts:['Do','Does','Are'],a:2,exp:'“Now” chỉ hiện tại tiếp diễn. Câu hỏi đảo “are” lên trước chủ ngữ “they”.',vi:'Bây giờ họ có đang chơi bóng đá không?'},
+ {q:'_____ your father work in a hospital?',opts:['Do','Does','Is'],a:1,exp:'Đây là câu hỏi hiện tại đơn. “Your father” là ngôi thứ ba số ít nên dùng “Does”.',vi:'Bố bạn có làm việc ở bệnh viện không?'},
+ {q:'_____ you watching TV at the moment?',opts:['Are','Do','Does'],a:0,exp:'“At the moment” chỉ hiện tại tiếp diễn. Với “you”, dùng “Are” ở đầu câu hỏi.',vi:'Bạn có đang xem TV vào lúc này không?'},
+ {q:'_____ he like English?',opts:['Do','Does','Is'],a:1,exp:'Đây là câu hỏi hiện tại đơn. Chủ ngữ “he” cần trợ động từ “Does”; động từ chính giữ nguyên “like”.',vi:'Cậu ấy có thích tiếng Anh không?'},
+ {q:'_____ the children sleeping now?',opts:['Do','Does','Are'],a:2,exp:'“Now” chỉ hiện tại tiếp diễn. “The children” là số nhiều nên dùng “Are” ở đầu câu hỏi.',vi:'Bọn trẻ có đang ngủ không?'},
+ {q:'_____ your mother cook dinner every day?',opts:['Do','Does','Is'],a:1,exp:'“Every day” chỉ thói quen. “Your mother” là ngôi thứ ba số ít nên dùng “Does”.',vi:'Mẹ bạn có nấu bữa tối mỗi ngày không?'},
+ {q:'_____ Lan doing her homework now?',opts:['Does','Do','Is'],a:2,exp:'“Now” chỉ hiện tại tiếp diễn. “Lan” là số ít nên dùng “Is” ở đầu câu hỏi.',vi:'Lan có đang làm bài tập về nhà bây giờ không?'},
+ {q:'_____ they live in a big house?',opts:['Do','Does','Are'],a:0,exp:'Đây là câu hỏi hiện tại đơn. Chủ ngữ “they” dùng trợ động từ “Do”.',vi:'Họ có sống trong một ngôi nhà lớn không?'},
+ {q:'_____ it raining outside now?',opts:['Do','Does','Is'],a:2,exp:'“Now” chỉ hiện tại tiếp diễn. Với “it”, dùng “Is” ở đầu câu hỏi.',vi:'Bây giờ bên ngoài trời có đang mưa không?'}
+ ]}
+];
+
+// Gộp 20 câu khẳng định + 10 câu phủ định + 10 câu nghi vấn thành một bài 40 câu.
+// Phần chia động từ trong ngoặc được bỏ để tổng số câu đúng theo yêu cầu.
+const mixedQuestions = rawParts
+  .filter(part => part.id !== 'verbs')
+  .flatMap(part => part.questions);
+rawParts.splice(0, rawParts.length, {
+  id: 'mixed',
+  title: '40 Mixed Questions – Present Simple & Present Continuous',
+  count: '40 câu trắc nghiệm trộn chung',
+  type: 'mc',
+  questions: mixedQuestions
+});
+
+const shuffle = arr => {
+ const x=[...arr];
+ for(let i=x.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[x[i],x[j]]=[x[j],x[i]]}
+ return x;
+};
+let parts={},activeId=null,index=0;
+function initParts(){
+ rawParts.forEach(p=>parts[p.id]={...p,questions:shuffle(p.questions).map(q=>({...q})),answers:{},locked:{},score:0});
+ renderPartList();
+}
+function renderPartList(){
+ const el=document.getElementById('partList');el.innerHTML='';
+ rawParts.forEach(p=>{
+  const st=parts[p.id],done=Object.keys(st.locked).length;
+  const d=document.createElement('div');d.className='part';
+  d.innerHTML=`<h3>${p.title}</h3><p>${p.count}</p><div class="row"><span class="badge">${done}/${st.questions.length} completed</span><button>Start</button></div>`;
+  d.querySelector('button').onclick=()=>openPart(p.id);
+  el.appendChild(d);
+ });
+}
+function openPart(id){activeId=id;index=0;document.getElementById('home').classList.add('hidden');document.getElementById('quiz').classList.remove('hidden');renderQuestion()}
+function renderQuestion(){
+ const p=parts[activeId],q=p.questions[index],locked=!!p.locked[index];
+ document.getElementById('partTitle').textContent=p.title;
+ document.getElementById('counter').textContent=`Question ${index+1} / ${p.questions.length} · Score ${p.score}/${p.questions.length}`;
+ document.getElementById('bar').style.width=((index+1)/p.questions.length*100)+'%';
+ document.getElementById('question').textContent=q.q;
+ const opts=document.getElementById('options');opts.innerHTML='';
+ document.getElementById('feedback').className='hidden';document.getElementById('feedback').innerHTML='';
+ if(p.type==='mc'){
+  q.opts.forEach((o,j)=>{
+   const b=document.createElement('button');b.className='opt';b.textContent=String.fromCharCode(65+j)+'. '+o;
+   if(locked){b.disabled=true;if(j===q.a)b.classList.add('correct');if(p.answers[index]===j&&j!==q.a)b.classList.add('wrong')}
+   b.onclick=()=>choose(j);opts.appendChild(b);
+  });
+ }else{
+  const inp=document.createElement('input');inp.type='text';inp.className='answer-input';inp.placeholder='Type your answer here...';inp.value=p.answers[index]||'';inp.disabled=locked;opts.appendChild(inp);
+  if(!locked){const check=document.createElement('button');check.textContent='Check answer';check.onclick=()=>checkText(inp.value);opts.appendChild(check)}
+ }
+ if(locked)showFeedback();
+ document.getElementById('prevBtn').disabled=index===0;
+ document.getElementById('nextBtn').disabled=!locked;
+ document.getElementById('nextBtn').textContent=index===p.questions.length-1?'Finish part':'Next →';
+}
+function choose(j){
+ const p=parts[activeId],q=p.questions[index];if(p.locked[index])return;
+ p.answers[index]=j;p.locked[index]=true;
+ if(j===q.a)p.score++;
+ renderQuestion();
+}
+function checkText(value){
+ const p=parts[activeId],q=p.questions[index];if(p.locked[index])return;
+ const cleaned=value.trim().toLowerCase().replace(/\s+/g,' ');
+ p.answers[index]=value;
+ p.locked[index]=true;
+ const ok=q.a.some(a=>a.toLowerCase()===cleaned);
+ if(ok)p.score++;
+ renderQuestion();
+}
+function showFeedback(){
+ const p=parts[activeId],q=p.questions[index],fb=document.getElementById('feedback');
+ let ok;
+ if(p.type==='mc')ok=p.answers[index]===q.a;
+ else ok=q.a.some(a=>a.toLowerCase()===String(p.answers[index]).trim().toLowerCase().replace(/\s+/g,' '));
+ let answer=p.type==='mc'?q.opts[q.a]:q.a[0];
+ fb.className='feedback '+(ok?'good':'bad');
+ fb.innerHTML=`<strong>${ok?'✓ Chính xác!':'✗ Chưa chính xác.'}</strong>
+ <div><b>Đáp án:</b> ${escapeHtml(answer)}</div>
+ <div class="explain"><b>Giải thích:</b> ${escapeHtml(q.exp)}</div>
+ <div class="translation"><b>Nghĩa tiếng Việt:</b> ${escapeHtml(q.vi)}</div>`;
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+document.getElementById('nextBtn').onclick=()=>{
+ const p=parts[activeId];
+ if(index<p.questions.length-1){index++;renderQuestion()}
+ else{renderPartList();document.getElementById('quiz').classList.add('hidden');document.getElementById('home').classList.remove('hidden')}
+};
+document.getElementById('prevBtn').onclick=()=>{if(index>0){index--;renderQuestion()}};
+document.getElementById('backHome').onclick=()=>{renderPartList();document.getElementById('quiz').classList.add('hidden');document.getElementById('home').classList.remove('hidden')};
+document.getElementById('resetPart').onclick=()=>{
+ if(!confirm('Bạn muốn làm lại toàn bộ phần này? Điểm và câu trả lời của phần hiện tại sẽ được xóa.'))return;
+ const original=rawParts.find(x=>x.id===activeId);
+ parts[activeId]={...original,questions:shuffle(original.questions).map(q=>({...q})),answers:{},locked:{},score:0};
+ index=0;renderPartList();renderQuestion();
+};
+document.getElementById('loginBtn').onclick=login;
+document.getElementById('password').addEventListener('keydown',e=>{if(e.key==='Enter')login()});
+function login(){if(document.getElementById('password').value==='367'){document.getElementById('login').classList.add('hidden');document.getElementById('home').classList.remove('hidden')}else{document.getElementById('loginError').textContent='Incorrect password. Please try again.'}}
+initParts();
+</script>
+</body>
+</html>
